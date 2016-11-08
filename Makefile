@@ -129,11 +129,11 @@ update:
 # target: npm-update         - Update npm development packages.
 # target: npm-version        - Display version for each package.
 .PHONY: npm-installl npm-update npm-version
-npm-install: 
+npm-install:
 	@$(call HELPTEXT,$@)
 	npm install
 
-npm-update: 
+npm-update:
 	@$(call HELPTEXT,$@)
 	npm update
 
@@ -141,3 +141,16 @@ npm-version:
 	@$(call HELPTEXT,$@)
 	$(NPMBIN)/lessc --version
 	$(NPMBIN)/csslint --version
+
+	# target: upgrade-normalize       - Upgrade LESS module - Normalize.
+.PHONY: upgrade-normalize
+upgrade-normalize:
+	@$(call HELPTEXT,$@)
+
+    # Normalizer
+    wget --quiet https://necolas.github.io/normalize.css/latest/normalize.css -O $(LESS_MODULES)/normalize.less
+
+# target: upgrade                 - Upgrade external LESS modules.
+.PHONY: upgrade
+upgrade: upgrade-normalize upgrade-responsive-menu
+	@$(call HELPTEXT,$@)
